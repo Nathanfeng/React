@@ -1,13 +1,23 @@
 
-var app = {
+
+const app = {
   title: "Indecision App",
-  subtitle: "put your life in the hands of a computer"
+  subtitle: "put your life in the hands of a computer",
+  options: ["One", "Two"]
 }
 
-var template = (
+function getSubtitle(subtitle) {
+  if (subtitle) {
+    return <p>app.subtitle</p>
+  }
+}
+
+
+const template = (
   <div>
     <h1>{app.title}</h1>
-    <p>{app.subtitle}</p>
+    {app.subtitle && <p>{app.subtitle}</p>}
+    {app.options.length > 0 ? <p>here are your options</p> : <p>there are no options</p>}
     <ol>
       <li>Item1</li>
       <li>Item2</li>
@@ -29,7 +39,7 @@ var template = (
 // )
 
 
-var appRoot = document.getElementById("app");
+const appRoot = document.getElementById("app");
 
 // ReactDOM.render(templateTwo, appRoot);
 ReactDOM.render(template, appRoot);

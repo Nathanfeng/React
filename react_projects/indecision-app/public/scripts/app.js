@@ -2,8 +2,19 @@
 
 var app = {
   title: "Indecision App",
-  subtitle: "put your life in the hands of a computer"
+  subtitle: "put your life in the hands of a computer",
+  options: ["One", "Two"]
 };
+
+function getSubtitle(subtitle) {
+  if (subtitle) {
+    return React.createElement(
+      "p",
+      null,
+      "app.subtitle"
+    );
+  }
+}
 
 var template = React.createElement(
   "div",
@@ -13,10 +24,19 @@ var template = React.createElement(
     null,
     app.title
   ),
-  React.createElement(
+  app.subtitle && React.createElement(
     "p",
     null,
     app.subtitle
+  ),
+  app.options.length > 0 ? React.createElement(
+    "p",
+    null,
+    "here are your options"
+  ) : React.createElement(
+    "p",
+    null,
+    "there are no options"
   ),
   React.createElement(
     "ol",
