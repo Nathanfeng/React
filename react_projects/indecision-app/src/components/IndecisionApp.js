@@ -1,16 +1,16 @@
 import React from 'react'
-
 import AddOption from './AddOption';
 import Header from './Header';
 import Action from './Action';
 import Options from './Options';
+import OptionModal from './OptionModal';
 
 class IndecisionApp extends React.Component {
 
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   };
-
 
   handleDeleteOptions = () => {
     this.setState(() => ({ options: []}))
@@ -22,10 +22,18 @@ class IndecisionApp extends React.Component {
     }));
   };
 
+  handleSelectedOption = () => {
+    this.setState(() => ({
+      selectedOption: undefined
+    }));
+  }
+
   handlePick = () => {
     let options = this.state.options
     let pick = options[Math.floor(Math.random() * options.length)];
-    alert(`${pick}`)
+    this.setState(() => ({
+      selectedOption: pick
+    }));
   };
 
   handleAddOption = (option) => {
@@ -65,17 +73,25 @@ class IndecisionApp extends React.Component {
     return (
       <div>
         <Header subtitle={subtitle}/>
-        <Action
-          hasOptions={this.state.options.length > 0}
-          handlePick={this.handlePick}
-        />
-        <Options
-          options={this.state.options}
-          handleDeleteOptions={this.handleDeleteOptions}
-          handleDeleteOption={this.handleDeleteOption}
-        />
-        <AddOption
-          handleAddOption={this.handleAddOption}
+      <div className='container'>
+          <Action
+            hasOptions={this.state.options.length > 0}
+            handlePick={this.handlePick}
+          />
+        <div className="widget">
+          <Options
+            options={this.state.options}
+            handleDeleteOptions={this.handleDeleteOptions}
+            handleDeleteOption={this.handleDeleteOption}
+          />
+          <AddOption
+            handleAddOption={this.handleAddOption}
+          />
+        </div>
+        </div>
+        <OptionModal
+         selectedOption={this.state.selectedOption }
+         handleSelectedOption= {this.handleSelectedOption}
         />
       </div>
     );
